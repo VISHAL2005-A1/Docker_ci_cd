@@ -1,0 +1,37 @@
+services:
+
+  http-server:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.backend
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    container_name: http-server
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+
+  ws-server:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.ws
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    container_name: ws-server
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+
+  web:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile.web
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    container_name: web
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}

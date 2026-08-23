@@ -1,0 +1,16 @@
+node_modules
+.git
+.gitignore
+
+.next
+.turbo
+
+.env
+.env.local
+.env.*.local
+
+Dockerfile*
+docker-compose.yml
+
+npm-debug.log*
+bun-debug.log*
