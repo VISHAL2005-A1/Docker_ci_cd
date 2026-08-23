@@ -24,7 +24,7 @@ jobs:
       - name: Build HTTP Server
         run: |
           docker build \
-            -f Docker/Dockerfile.http \
+            -f Docker/Dockerfile.backend \
             -t ${{ secrets.DOCKER_USERNAME }}/http-server:latest .
 
       - name: Build WebSocket Server
