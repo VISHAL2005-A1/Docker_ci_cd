@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: " Hello!! HTTP Server is running"
+    message: " Hello! 27 AUG HTTP Server is running"
   });
 });
 
