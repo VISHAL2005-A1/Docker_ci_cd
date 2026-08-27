@@ -1,20 +1,17 @@
-FROM oven/bun:1.4
+FROM oven/bun:1
 
-WORKDIR /app
+WORKDIR /usr/src/app
+COPY ./packages ./packages
+COPY ./bun.lock ./bun.lock
 
-COPY package.json bun.lock ./
+COPY ./package.json ./package.json
+COPY ./turbo.json ./turbo.json
 
-COPY apps/ws-server/package.json ./apps/ws-server/package.json
-COPY packages/db/package.json ./packages/db/package.json
-
-RUN bun install
+COPY ./apps/ws-server ./apps/ws-server
 
 COPY . .
 
-RUN bunx prisma generate --schema=packages/db/prisma/schema.prisma
-
-WORKDIR /app/apps/ws-server
-
+RUN bun install
+RUN bun run db:generate
 EXPOSE 4000
-
-CMD ["bun", "index.ts"]
+CMD ["bun","run","start:websocket"]
