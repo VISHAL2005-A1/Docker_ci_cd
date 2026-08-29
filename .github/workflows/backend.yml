@@ -25,3 +25,12 @@ jobs:
           file: ./Docker/Dockerfile.backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}
+      - name: Deploy to Ubuntu VM
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 600 ~/ssh_key
+
+          ssh -o StrictHostKeyChecking=no \
+           -i ~/ssh_key \
+           ubuntu@52.90.132.234 \
+           "docker ps"
