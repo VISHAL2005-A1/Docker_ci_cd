@@ -25,12 +25,19 @@ jobs:
           file: ./Docker/Dockerfile.backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}
-      - name: Deploy to Ubuntu VM
+      - name: Deploy to the VM
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
           chmod 600 ~/ssh_key
 
           ssh -o StrictHostKeyChecking=no \
-           -i ~/ssh_key \
-           ubuntu@52.90.132.234 \
-           "docker ps"
+            -i ~/ssh_key \
+            ubuntu@52.90.132.234 \
+            "docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}' && \
+             docker pull vishalhe123/backend:${{ github.sha }} && \
+             docker stop user_backend || true && \
+             docker rm user_backend || true && \
+             docker run -d \
+               --name user_backend \
+               -p 3000:3000 \
+               vishalhe123/backend:${{ github.sha }}"
