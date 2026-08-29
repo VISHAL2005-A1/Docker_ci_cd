@@ -12,7 +12,7 @@ COPY ./apps/web ./apps/web
 
 COPY . .
 
-RUN bun install
-RUN bun run db:migrate
+RUN bun install --registry https://registry.npmjs.org
+RUN bun run db:generate
 EXPOSE 3001
 CMD ["bun","run","start:web"]
