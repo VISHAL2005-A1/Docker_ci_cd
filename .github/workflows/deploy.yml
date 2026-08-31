@@ -57,7 +57,7 @@ jobs:
             -i ~/ssh_key \
             ubuntu@54.167.31.176 \
             "cd ~/docker_ci_cd && \
-             export IMAGE_TAG=${{ github.sha }} && \
-             docker compose pull && \
-             docker compose down && \
-             docker compose up -d"
+            export IMAGE_TAG=${{ github.sha }} && \
+            docker compose -f docker-compose.yml pull && \
+            docker compose -f docker-compose.yml down && \
+            docker compose -f docker-compose.yml up -d"
